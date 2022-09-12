@@ -19,6 +19,9 @@ def amenity_by_place(place_id):
 
         amenity = storage.get(Place, place_id)
 
+        if amenity is None:
+            abort(404)
+
         amenities = []
 
         for amenity in storage.all("Amenity").values():
@@ -33,8 +36,9 @@ def delete_amenity(place_id, amenity_id):
         """Delete an Amenity"""
         place = storage.get(Place, place_id)
 
-        if place is not None:
+        if place is None:
             abort(404)
+
         amenity = storage.get(Amenity, amenity_id)
 
         if amenity is None:
