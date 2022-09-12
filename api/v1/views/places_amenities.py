@@ -32,7 +32,7 @@ def amenity_by_place(place_id):
 
 @app_views.route("/places/<place_id>/amenities/<amenity_id>",
                  methods=["DELETE"], strict_slashes=False)
-def delete_amenity(place_id, amenity_id):
+def del_amenity(place_id, amenity_id):
     """Delete an Amenity"""
     place = storage.get("Place", place_id)
 
@@ -51,7 +51,7 @@ def delete_amenity(place_id, amenity_id):
 
 @app_views.route("/places/<place_id>/amenities/<amenity_id>",
                  methods=["POST"], strict_slashes=False)
-def post_place_amenity(place_id, amenity_id):
+def crea_amenity(place_id, amenity_id):
     """Creates an Amenity"""
 
     place = storage.get("Place", place_id)
