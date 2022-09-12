@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-Places_amenities instances
+Places_amenities instance
 """
 
 
