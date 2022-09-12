@@ -12,58 +12,58 @@ from models.place import Place
 from models.amenity import Amenity
 
 
-@app_views.route('/places/<place_id>/amenities', methods=['GET'],
+@app_views.route("/places/<place_id>/amenities", methods=["GET"],
                  strict_slashes=False)
 def amenity_by_place(place_id):
-        """Get the amenities by place"""
+    """Get the amenities by place"""
 
-        place = storage.get("Place", place_id)
+    place = storage.get("Place", place_id)
 
-        if place is None:
-            abort(404)
+    if place is None:
+        abort(404)
 
-        amenities = []
+    amenities = []
 
-        for amenity in place.amenities:
-            amenities.append(amenity.to_dict())
+    for amenity in place.amenities:
+        amenities.append(amenity.to_dict())
 
-        return jsonify(amenities)
-
-
-@app_views.route('/places/<place_id>/amenities/<amenity_id>',
-                 methods=['DELETE'], strict_slashes=False)
-def delete_amenity(place_id, amenity_id):
-        """Delete an Amenity"""
-        place = storage.get("Place", place_id)
-
-        if place is None:
-            abort(404)
-
-        amenity = storage.get("Amenity", amenity_id)
-
-        if amenity is None:
-            abort(404)
-
-        amenity.delete()
-        storage.save()
-        return make_response(jsonify({}), 200)
+    return jsonify(amenities)
 
 
 @app_views.route("/places/<place_id>/amenities/<amenity_id>",
-                 methods=['POST'], strict_slashes=False)
+                 methods=["DELETE"], strict_slashes=False)
+def delete_amenity(place_id, amenity_id):
+    """Delete an Amenity"""
+    place = storage.get("Place", place_id)
+
+    if place is None:
+        abort(404)
+
+    amenity = storage.get("Amenity", amenity_id)
+
+    if amenity is None:
+        abort(404)
+
+    amenity.delete()
+    storage.save()
+    return make_response(jsonify({}), 200)
+
+
+@app_views.route("/places/<place_id>/amenities/<amenity_id>",
+                 methods=["POST"], strict_slashes=False)
 def post_place_amenity(place_id, amenity_id):
-        """Creates an Amenity"""
+    """Creates an Amenity"""
 
-        place = storage.get("Place", place_id)
-        if place is None:
-            abort(404)
+    place = storage.get("Place", place_id)
+    if place is None:
+        abort(404)
 
-        amenity = storage.get("Amenity", amenity_id)
-        if amenity is None:
-            abort(404)
+    amenity = storage.get("Amenity", amenity_id)
+    if amenity is None:
+        abort(404)
 
-        amenities = place.amenities
-        amenities.append(amenity)
+    amenities = place.amenities
+    amenities.append(amenity)
 
-        if amenity in amenities:
-            return jsonify(amenity.to_dict(), 200)
+    if amenity in amenities:
+        return jsonify(amenity.to_dict(), 200)
