@@ -17,14 +17,14 @@ from models.amenity import Amenity
 def amenity_by_place(place_id):
         """Get the amenities by place"""
 
-        amenity = storage.get(Place, place_id)
+        place = storage.get("Place", place_id)
 
-        if amenity is None:
+        if place is None:
             abort(404)
 
         amenities = []
 
-        for amenity in storage.all("Amenity").values():
+        for amenity in place.amenities:
             amenities.append(amenity.to_dict())
 
         return jsonify(amenities)
@@ -34,12 +34,12 @@ def amenity_by_place(place_id):
                  methods=['DELETE'], strict_slashes=False)
 def delete_amenity(place_id, amenity_id):
         """Delete an Amenity"""
-        place = storage.get(Place, place_id)
+        place = storage.get("Place", place_id)
 
         if place is None:
             abort(404)
 
-        amenity = storage.get(Amenity, amenity_id)
+        amenity = storage.get("Amenity", amenity_id)
 
         if amenity is None:
             abort(404)
@@ -54,11 +54,11 @@ def delete_amenity(place_id, amenity_id):
 def post_place_amenity(place_id, amenity_id):
         """Creates an Amenity"""
 
-        place = storage.get(Place, place_id)
+        place = storage.get("Place", place_id)
         if place is None:
             abort(404)
 
-        amenity = storage.get(Amenity, amenity_id)
+        amenity = storage.get("Amenity", amenity_id)
         if amenity is None:
             abort(404)
 
