@@ -11,6 +11,7 @@ from models import amenity
 from models.place import Place
 from models.amenity import Amenity
 
+
 @app_views.route('/places/<place_id>/amenities', methods=['GET'],
                  strict_slashes=False)
 def amenity_by_place(place_id):
@@ -42,6 +43,7 @@ def delete_amenity(place_id, amenity_id):
         amenity.delete()
         storage.save()
         return make_response(jsonify({}), 200)
+
 
 @app_views.route("/places/<place_id>/amenities/<amenity_id>",
                  methods=['POST'], strict_slashes=False)
